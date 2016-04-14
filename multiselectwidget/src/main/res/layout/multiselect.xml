@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/expandableList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:layout_weight="2"/>
+
+    <LinearLayout
+        android:id="@+id/lnrSelected"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtSelected"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:text="Selected"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            />
+
+        <GridView
+            android:id="@+id/lnrSelectedItems"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:horizontalSpacing="5dp"
+            android:numColumns="2"
+            android:verticalSpacing="5dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
