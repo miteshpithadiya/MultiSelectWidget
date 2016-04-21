@@ -1,5 +1,33 @@
 apply plugin: 'com.android.library'
 
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'multiselect-widget'
+
+    publishedGroupId = 'com.toptoche.multiselectwidget'
+    libraryName = 'MultiselectWidget'
+    artifact = 'multiselect-widget'
+
+    libraryDescription = 'A widget for selecting multiple items from a list.'
+
+    siteUrl = 'https://github.com/miteshpithadiya/MultiSelectWidget'
+    gitUrl = 'https://github.com/miteshpithadiya/MultiSelectWidget.git'
+
+    libraryVersion = '0.0.1'
+
+    developerId = 'miteshpithadiya'
+    developerName = 'Mitesh Pithadiya'
+    developerEmail = 'miteshvanp@hotmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+def siteUrl = 'https://github.com/miteshpithadiya/MultiSelectWidget'
+def gitUrl = 'https://github.com/miteshpithadiya/MultiSelectWidget.git'
+
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -8,18 +36,91 @@ android {
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.1"
     }
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+apply plugin: 'com.jfrog.bintray'
+
+version = "0.0.1"
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = "MultiselectWidget"
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
+}
+
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = "com.toptoche.multiselectwidget"
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                name 'A widget for selecting multiple items from a list.'
+                url siteUrl
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'miteshpithadiya'
+                        name 'Mitesh Pithadiya'
+                        email 'miteshvanp@hotmail.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+
+                }
+            }
         }
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.2.1'
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+task findConventions << {
+    println project.getConvention()
 }
