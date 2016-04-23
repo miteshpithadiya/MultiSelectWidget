@@ -5,45 +5,52 @@ A widget for selecting multiple items from a list.
 ![Alt text](https://github.com/miteshpithadiya/MultiSelectWidget/blob/master/multiselectwidget/src/main/res/multiselectwidget.gif "MultiSelectWidget")
 
 # Gradle
-    dependencies {
-        ...
-        compile 'com.toptoche.multiselectwidget:multiselectwidget:0.0.1'
-    }
-
+```groovy
+dependencies {
+    ...
+    compile 'com.toptoche.multiselectwidget:multiselectwidget:0.0.1'
+}
+```
 # Usage
-        <com.toptoche.multiselectwidget.MultiSelectView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content" />
+```xml
+<com.toptoche.multiselectwidget.MultiSelectView
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content" />
+```
 
-        multiSelectView.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1,
-                getResources().getStringArray(android.R.array.imProtocols)), new ArrayList());
+```java
+multiSelectView.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1,
+        getResources().getStringArray(android.R.array.imProtocols)), new ArrayList());
+```
                 
 # Methods
-        multiSelectView.setDelimiter(";");
-        multiSelectView.setTitle("Select Item");
+```java
+multiSelectView.setDelimiter(";");
+multiSelectView.setTitle("Select Item");
+
+multiSelectView.setPositiveButton("OK");
+multiSelectView.setPositiveButton("OK", new MultiSelectFragment.OnPositiveButtonClicked() {
+    @Override
+    public void onPositiveButtonClicked(Dialog dialog) {
         
-        multiSelectView.setPositiveButton("OK");
-        multiSelectView.setPositiveButton("OK", new MultiSelectFragment.OnPositiveButtonClicked() {
-            @Override
-            public void onPositiveButtonClicked(Dialog dialog) {
-                
-            }
-        });
+    }
+});
+
+multiSelectView.setNegativeButton("CANCEL");
+multiSelectView.setNegativeButton("CANCEL", new MultiSelectFragment.OnNegativeButtonClicked() {
+    @Override
+    public void onNegativeButtonClicked(Dialog dialog) {
         
-        multiSelectView.setNegativeButton("CANCEL");
-        multiSelectView.setNegativeButton("CANCEL", new MultiSelectFragment.OnNegativeButtonClicked() {
-            @Override
-            public void onNegativeButtonClicked(Dialog dialog) {
-                
-            }
-        });
+    }
+});
+
+multiSelectView.setOnNoItemSelectedListener(new MultiSelectFragment.OnNoItemSelected() {
+    @Override
+    public void onNoItemSelected(Dialog dialog) {
         
-        multiSelectView.setOnNoItemSelectedListener(new MultiSelectFragment.OnNoItemSelected() {
-            @Override
-            public void onNoItemSelected(Dialog dialog) {
-                
-            }
-        });
+    }
+});
+```
     
 # Changelog
  * <b>0.0.1</b>
