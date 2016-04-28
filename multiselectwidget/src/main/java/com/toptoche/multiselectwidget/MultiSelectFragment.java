@@ -85,12 +85,16 @@ public class MultiSelectFragment extends DialogFragment {
                 btnSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        _mapSelectedItems.clear();
                         if (_onNoItemSelected != null && _listSelectedItems.isEmpty()) {
                             _onNoItemSelected.onNoItemSelected(getDialog());
                         } else if (_onPositiveButtonClicked != null) {
+                            for (Object object : _listSelectedItems) {
+                                _mapSelectedItems.put(object.hashCode(), object);
+                            }
+                            _multiSelectCallback.onItemsSelected(_listSelectedItems);
                             _onPositiveButtonClicked.onPositiveButtonClicked(getDialog());
                         } else {
-                            _mapSelectedItems.clear();
                             for (Object object : _listSelectedItems) {
                                 _mapSelectedItems.put(object.hashCode(), object);
                             }
@@ -104,12 +108,12 @@ public class MultiSelectFragment extends DialogFragment {
                 btnCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        _listSelectedItems.clear();
+                        _listSelectedItems.addAll(_mapSelectedItems.values());
+                        _multiSelectCallback.onItemsSelected(_listSelectedItems);
                         if (null != _onNegativeButtonClicked) {
                             _onNegativeButtonClicked.onNegativeButtonClicked(getDialog());
                         } else {
-                            _listSelectedItems.clear();
-                            _listSelectedItems.addAll(_mapSelectedItems.values());
-                            _multiSelectCallback.onItemsSelected(_listSelectedItems);
                             getDialog().dismiss();
                         }
                     }

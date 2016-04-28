@@ -42,6 +42,11 @@ public class MultiSelectView extends TextView implements View.OnClickListener,
         _selectedItems = new ArrayList();
         _multiSelectFragment = MultiSelectFragment.newInstance();
         _multiSelectFragment.setOnMultiSelectItemListener(this);
+        if (null == getHint() || TextUtils.isEmpty(getHint().toString())) {
+            setHint("Tap to select");
+        } else {
+            setHint(getHint());
+        }
         setOnClickListener(this);
     }
 

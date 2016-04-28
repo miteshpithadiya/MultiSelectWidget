@@ -12,7 +12,6 @@
 
     <com.toptoche.multiselectwidget.MultiSelectView
         android:id="@+id/m"
-        android:hint="Tap to select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </RelativeLayout>
