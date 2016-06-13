@@ -46,6 +46,8 @@ A widget for selecting multiple items from a list.
         });
     
 # Changelog
+ * <b>0.0.3</b>
+    * Bug Fixes.
  * <b>0.0.2</b>
     * Resolved issues related to fetching selected items.
  * <b>0.0.1</b>

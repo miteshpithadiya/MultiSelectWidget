@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.toptoche.multiselectwidget.MultiSelectFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,12 +69,34 @@ public class MultiSelectView extends TextView implements View.OnClickListener,
     }
 
     public void setAdapter(ArrayAdapter adapter, List selectedItems) {
+        _selectedItems.addAll(selectedItems);
+
+        final StringBuilder strItems = new StringBuilder();
+
+        final String strDelimiter = _strDelimiter == null?" | ":_strDelimiter;
+        for (Object object : selectedItems) {
+            strItems.append(object.toString()).append(strDelimiter);
+        }
+
+        if (strItems.length() > 0) {
+            // Trimming the last semicolon.
+            setText(strItems.substring(0, strItems.length() - strDelimiter.length()));
+        } else {
+            setText("");
+            if (null == getHint() || TextUtils.isEmpty(getHint().toString())) {
+                setHint("Tap to select");
+            } else {
+                setHint(getHint());
+            }
+        }
+
         _multiSelectFragment.setAdapter(adapter, selectedItems);
     }
 
     @Override
     public void onItemsSelected(List items) {
-        _selectedItems = items;
+        _selectedItems.clear();
+        _selectedItems.addAll(items);
         final StringBuilder strItems = new StringBuilder();
 
         final String strDelimiter = _strDelimiter == null?" | ":_strDelimiter;

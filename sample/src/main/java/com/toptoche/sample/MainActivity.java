@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         stringList.add(getResources().getStringArray(android.R.array.imProtocols)[1]);
 
         multiSelectView.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1,
-                getResources().getStringArray(android.R.array.imProtocols)), new ArrayList());
+                getResources().getStringArray(android.R.array.imProtocols)), stringList);
 
         multiSelectView.setDelimiter(";");
 
