@@ -7,7 +7,7 @@ A widget for selecting multiple items from a list.
 # Gradle
     dependencies {
         ...
-        compile 'com.toptoche.multiselectwidget:multiselectwidget:0.0.2'
+        compile 'com.toptoche.multiselectwidget:multiselectwidget:0.0.3'
     }
 
 # Usage
